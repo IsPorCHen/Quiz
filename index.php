@@ -1,6 +1,6 @@
 <?php
-    include 'includes/db_connect.php'; // Подключаем базу данных
-    include 'templates/header.php';     // Подключаем header
+    include 'includes/db_connect.php';
+    include 'templates/header.php';
 
     // Получаем список викторин
     $query = "SELECT * FROM quizzes";
@@ -12,7 +12,6 @@
 <ul>
     <?php
         if (mysqli_num_rows($result) > 0) {
-            // Выводим список викторин
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<li><a href='quiz.php?id=" . $row['id'] . "'>" . $row['title'] . "</a></li>";
             }
@@ -23,5 +22,5 @@
 </ul>
 
 <?php
-    include 'templates/footer.php';    // Подключаем footer
+    include 'templates/footer.php';
 ?>
