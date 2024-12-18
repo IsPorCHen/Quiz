@@ -1,22 +1,19 @@
 <?php
 include 'includes/db_connect.php';
 
-// Получаем ID викторины из URL
 $quiz_id = $_GET['id'];
 
-// Запрос на получение информации о викторине, включая её название
 $quiz_query = "SELECT * FROM quizzes WHERE id = $quiz_id";
 $quiz_result = mysqli_query($conn, $quiz_query);
 
 if ($quiz_result) {
     $quiz = mysqli_fetch_assoc($quiz_result);
-    $quiz_title = $quiz['title']; // Название викторины
+    $quiz_title = $quiz['title'];
 } else {
     echo "Ошибка при получении информации о викторине.";
     exit;
 }
 
-// Запрос на получение вопросов для этой викторины
 $questions_query = "SELECT * FROM questions WHERE quiz_id = $quiz_id";
 $questions_result = mysqli_query($conn, $questions_query);
 ?>
@@ -30,8 +27,7 @@ $questions_result = mysqli_query($conn, $questions_query);
 <body>
     <h1>Викторина: <?= $quiz_title ?></h1>
     <form method="POST" action="submit_quiz.php">
-        <input type="hidden" name="quiz_id" value="<?= $quiz_id ?>"> <!-- Передаем ID викторины -->
-
+        <input type="hidden" name="quiz_id" value="<?= $quiz_id ?>">
         <?php while ($row = mysqli_fetch_assoc($questions_result)): ?>
             <fieldset>
                 <legend><?= $row['question_text'] ?></legend>
