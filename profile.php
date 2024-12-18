@@ -2,7 +2,6 @@
 session_start();
 include 'includes/db_connect.php';
 
-// Проверка, что пользователь авторизован
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Получение всех результатов пользователя
 $query = "SELECT quizzes.title, results.score, results.created_at FROM results 
           JOIN quizzes ON results.quiz_id = quizzes.id
           WHERE results.user_id = '$user_id' ORDER BY results.created_at DESC";
